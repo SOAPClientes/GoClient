@@ -237,7 +237,6 @@ func estudiantes2Handler(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("xml.Unmarshal error: %s", err)
 	}
 
-	// Asegurémonos de que estamos obteniendo los datos correctos
 	log.Printf("Raw response: %+v\n", res.Body)
 	log.Printf("Deserialized response: %+v\n", response)
 
@@ -245,17 +244,14 @@ func estudiantes2Handler(w http.ResponseWriter, r *http.Request) {
 	for i, student := range response.Estudiantes2Result.String {
 		studentData := strings.Split(student, ",")
 		if len(studentData) < 3 {
-			// Si faltan datos, llenamos con cadenas vacías
 			for len(studentData) < 3 {
 				studentData = append(studentData, "")
 			}
 		}
-		// Asignar número incremental
 		studentWithNumber := append([]string{fmt.Sprintf("%d", i+1)}, studentData...)
 		students[i] = studentWithNumber
 	}
 
-	// Añadir estado basado en la nota
 	for i, student := range students {
 		nota := student[3]
 		estado := "Desaprobado"
@@ -267,7 +263,6 @@ func estudiantes2Handler(w http.ResponseWriter, r *http.Request) {
 		students[i] = append(student, estado)
 	}
 
-	// Registro de depuración para verificar los datos
 	log.Printf("Processed students: %+v\n", students)
 
 	templates.ExecuteTemplate(w, "estudiantes2.html", students)
