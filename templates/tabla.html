@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WS Service Cliente Go - Tabla</title>
+    </head>
+    <body>
+        <center>
+            <h1>Tabla</h1>
+            <br /><br />
+            <form action="/tabla" method="POST">
+                <table>
+                    <tr>
+                        <td>Número:</td>
+                        <td><input type="number" name="n1" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input
+                                type="submit"
+                                value="Calcular"
+                                name="Calcular"
+                            />
+                            <input type="reset" value="Limpiar" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <br /><br />
+            {{if .}}
+            <p>Tabla:</p>
+            {{range .}}
+            <p>{{.}}</p>
+            {{end}} {{end}}
+            <br /><br />
+            <a href="/">Volver</a>
+        </center>
+    </body>
+</html>
